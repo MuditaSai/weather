@@ -109,6 +109,10 @@ def find_hedge_opportunity(markets, forecast_temp):
         # Clamp to valid Kalshi price bounds (1-99)
         maker_price = max(1, min(99, int(maker_price)))
 
+        # Skip suspiciously low prices (<15¢) - not worth the money
+        if maker_price < 15:
+            continue
+
         # Calculate midpoint for sorting
         if floor is not None and cap is not None:
             midpoint = (floor + cap) / 2
